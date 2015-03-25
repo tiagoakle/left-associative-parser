@@ -106,28 +106,25 @@ TEST(AST,build_1)
     abstract_syntax_tree ast(query);
     stringstream ss;
     ast.repr(ss);
-    std::cout << query << endl;
-    std::cout << ss.str() << endl;
-}
+	EXPECT_EQ(ss.str(),"(| a (| b (| c (| d (| e (| F T))))))");
+ }
 
 TEST(AST,build_2)
 {
     string query = "(a|b)&c|d";
-    std::cout << query << endl;
 	abstract_syntax_tree ast(query);
     stringstream ss;
     ast.repr(ss);
-    std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"(| (& (| a b) c) d)");
 }
 
 TEST(AST,build_3)
 {
     string query = "((a|b)&c|d)";
-    std::cout << query << endl;
 	abstract_syntax_tree ast(query);
     stringstream ss;
     ast.repr(ss);
-    std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"(| (& (| a b) c) d)");
 }
 
 TEST(AST,build_trivial)
@@ -150,7 +147,7 @@ TEST(AST,simplify_trivial)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"F");
 }
 
 
@@ -162,7 +159,7 @@ TEST(AST,specification_1)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"F");
 
 }
 
@@ -174,7 +171,7 @@ TEST(AST,specification_2)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"T");
 }
 
 TEST(AST,specification_3)
@@ -185,7 +182,7 @@ TEST(AST,specification_3)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"T");
 }
 TEST(AST,specification_4)
 {
@@ -195,8 +192,7 @@ TEST(AST,specification_4)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
-
+	EXPECT_EQ(ss.str(),"(| a (! a))");
 }
 
 TEST(AST,specification_5)
@@ -207,7 +203,7 @@ TEST(AST,specification_5)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"F");
 }
 
 TEST(AST,specification_6)
@@ -218,7 +214,6 @@ TEST(AST,specification_6)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
 }
 
 TEST(AST,specification_7)
@@ -229,8 +224,7 @@ TEST(AST,specification_7)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
-
+	EXPECT_EQ(ss.str(),"(| (& a b) c)");
 }
 
 TEST(AST,specification_8)
@@ -241,7 +235,7 @@ TEST(AST,specification_8)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"(| (& a b) c)");
 }
 
 TEST(AST,specification_9)
@@ -253,7 +247,7 @@ TEST(AST,specification_9)
 	ast.simplify();
 	stringstream ss;
 	ast.repr(ss);
-	std::cout << ss.str() << endl;
+	EXPECT_EQ(ss.str(),"(& a c)");
 }
 
 }
